@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -17,6 +18,10 @@ class Comment extends Model
     /**
      * @var array
      */
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+    public $timestamps = false;
     protected $fillable = ['id_post', 'id_user', 'komen'];
 
     /**

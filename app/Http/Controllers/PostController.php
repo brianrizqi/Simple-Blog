@@ -92,7 +92,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::with('user')->with('kategori')->findOrFail($id);
+        $kategori = Kategori::all();
+        return view('edit_post', compact('post', 'kategori'));
     }
 
     /**
@@ -104,7 +106,35 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if ($request->img) {
+            $gambar = time() . '-' . $request->img->getClientOriginalName();
+            $request->file('img')->storeAs('public', $gambar);
+            $post = Post::updatePost(
+                $id,
+                $request->id_kategori,
+                $request->judul,
+                $request->artikel,
+                date('Y-m-d'),
+                $request->tag1,
+                $request->tag2,
+                $request->tag3,
+                $gambar
+            );
+        } else {
+            $gambar = Post::findOrFail($id);
+            $post = Post::updatePost(
+                $id,
+                $request->id_kategori,
+                $request->judul,
+                $request->artikel,
+                date('Y-m-d'),
+                $request->tag1,
+                $request->tag2,
+                $request->tag3,
+                $gambar->img
+            );
+        }
+        return redirect()->route('index');
     }
 
     /**
@@ -115,6 +145,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return redirect()->route('index');
     }
 }

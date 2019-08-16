@@ -55,10 +55,20 @@
                                     <li>
                                         <div class="comment-item">
                                             <div class="comment-content">
-                                                <h4>{{$item->user->name}}</h4>
-{{--                                                <p class="date"><i--}}
-{{--                                                        class="icon-clock"></i> {{$item->created_atcreated_at->format('m/d/Y')}}--}}
-{{--                                                </p>--}}
+                                                <h4>
+                                                    {{$item->user->name}}
+                                                    @if($post->id_user == Auth::user()->id || $item->id_user == Auth::user()->id)
+                                                        <form method="POST"
+                                                              action="{{route('komen.delete',['id'=>$item->id,'id_post'=>$post->id])}}"
+                                                              style="display: inline">
+                                                            <button class="btn btn-danger" type="submit">
+                                                                Delete
+                                                            </button>
+                                                            @method('DELETE')
+                                                            @csrf
+                                                        </form>
+                                                    @endif
+                                                </h4>
                                                 <p>
                                                     {{$item->komen}}
                                                 </p>

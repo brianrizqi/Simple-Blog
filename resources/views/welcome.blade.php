@@ -28,8 +28,26 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <div class="list-content">
-                                        <h3><a href="{{route('post.show',['id'=>$item->id])}}">{{$item->judul}}</a></h3>
-                                        <a href="#" class="tag tag-blue">#{{$item->tag1}}</a>
+                                        <h3>
+                                            <a href="{{route('post.show',['id'=>$item->id])}}">{{$item->judul}}</a>
+                                            @guest
+                                            @else
+                                                @if(Auth::user()->id == $item->user->id)
+                                                    <a href="{{route('post.edit',['id'=>$item->id])}}"
+                                                       class="btn btn-primary">Edit</a>
+                                                    <form method="POST"
+                                                          action="{{route('post.delete',['id'=>$item->id])}}"
+                                                          style="display: inline">
+                                                        <button class="btn btn-danger" type="submit">
+                                                            Delete
+                                                        </button>
+                                                        @method('DELETE')
+                                                        @csrf
+                                                    </form>
+                                                @endif
+                                            @endguest
+                                        </h3>
+                                        <a href="#" class="tag tag-green">#{{$item->tag1}}</a>
                                         @if($item->tag2 != null)
                                             <a href="#" class="tag tag-green">#{{$item->tag2}}</a>
                                         @endif
@@ -41,7 +59,8 @@
                                             <p><a href="#"><i class="icon-profile-male"></i> {{$item->user->name}}</a>
                                             </p>
                                             <p><i class="icon-clock"></i> {{$item->tanggal}}</p>
-                                            <p><a href="#"><i class="icon-chat"></i> {{$item->count_comment}} comments</a></p>
+                                            <p><a href="#"><i class="icon-chat"></i> {{$item->comments_count}}
+                                                    comments</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -49,14 +68,14 @@
                         @endforeach
                     </div>
                 </div>
-                <div class="col-sm-12">
-                    <div class="pagination">
-                        <ul class="pagination">
-                            <li><a href="#" class="active">1</a></li>
-                            <li><a href="#">2</a></li>
-                        </ul>
-                    </div>
-                </div>
+                {{--                <div class="col-sm-12">--}}
+                {{--                    <div class="pagination">--}}
+                {{--                        <ul class="pagination">--}}
+                {{--                            <li><a href="#" class="active">1</a></li>--}}
+                {{--                            <li><a href="#">2</a></li>--}}
+                {{--                        </ul>--}}
+                {{--                    </div>--}}
+                {{--                </div>--}}
             </div>
         </div>
     </section>

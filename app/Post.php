@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
@@ -29,6 +30,10 @@ class Post extends Model
      *
      * @var bool
      */
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+    public $timestamps = false;
     public $incrementing = false;
 
     /**
@@ -56,6 +61,27 @@ class Post extends Model
             'img' => $img
         ]);
         return $post;
+    }
+
+    public static function updatePost($id, $id_kategori, $judul, $artikel, $tanggal,
+                                      $tag1, $tag2, $tag3, $img)
+    {
+        $post = Post::findOrFail($id);
+        if (
+        $post->update([
+            'id_kategori' => $id_kategori,
+            'judul' => $judul,
+            'artikel' => $artikel,
+            'tanggal' => $tanggal,
+            'tag1' => $tag1,
+            'tag2' => $tag2,
+            'tag3' => $tag3,
+            'img' => $img
+        ])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function user()
