@@ -1,0 +1,123 @@
+@extends('layouts.base')
+@section('section')
+    <section class="page-cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="cover-content">
+                        <h1 class="blog-font">{{$post->judul}}</h1>
+                        <div class="author-detail1">
+                            <div class="author-content">
+                                <span><a href="#"><i class="icon-profile-male"></i>{{$post->user->name}}</a></span>
+                                <span><i class="icon-clock"></i> {{$post->tanggal}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-7">
+                    <img src="{{url('storage/image/'.$post->img)}}" alt="Image">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Ends -->
+
+    <!-- Detail -->
+    <section class="item-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <div class="item-wrapper detail-wrapper">
+                        <div class="item-detail blog-item-detail">
+                            <p class="articlepara">
+                                {{$post->artikel}}
+                            </p>
+                        </div>
+                        <div class="author-profile">
+                            <div class="profile-content">
+                                <p class="highlight">Written By</p>
+                                <h3><a href="#">{{$post->user->name}}</a></h3>
+                            </div>
+                        </div>
+                        <div class="item-tags">
+                            <a href="#" class="tag-blue tag">#{{$post->tag1}}</a>
+                            @if($post->tag2 != null)
+                                <a href="#" class="tag tag-blue">#{{$post->tag2}}</a>
+                            @endif
+                            @if($post->tag3 != null)
+                                <a href="#" class="tag tag-blue">#{{$post->tag3}}</a>
+                            @endif
+                        </div>
+                        <div class="comment-box">
+                            <h3>Comments</h3>
+                            <ul class="comment-list">
+                                <li>
+                                    <div class="comment-item">>
+                                        <div class="comment-content">
+                                            <h4><a href="#">Jack Richard</a></h4>
+                                            <p class="date"><i class="icon-clock"></i> 12 May 2018</p>
+                                            <p>Et veniam possimus voluptatum voluptatem excepturi qui. Unde eum ut
+                                                architecto veritatis quia deserunt incidunt consequatur. In fugiat
+                                                voluptatem porro distinctio deleniti quod labore. Ipsam quibusdam
+                                                inventore enim molestiae ducimus perspiciatis omnis. Eos repellat enim
+                                                qui sit eaque maiores.</p>
+                                            <p>Quos quos tempora ab eos eum. Et libero fugiat quia et qui. Et illo et ut
+                                                dolor nihil esse dolores rerum. Ut voluptatem voluptatibus non officiis
+                                                aut quia.</p>
+                                            <a href="#" class="btn-white btn-red">Reply</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="comment-form">
+                            <form action="{{route('komen.store',['id'=>$post->id])}}" method="POST">
+                                <h3>Add a comment</h3>
+                                <div class="row">
+                                    <div class="textarea col-sm-12">
+                                        <label for="Name">Your Comment:</label>
+                                        <textarea name="komen">
+
+                                        </textarea>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="comment-btn">
+                                            <button type="submit" class="btn-white btn-red">
+                                                Submit Comment
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-sidebar">
+                <div class="detail-sidebar-item">
+                    <h5><a href="detail1.html">Some native species quickly disappeared from Biotest Lake</a><span><a
+                                href="#">John Doe</a></span></h5>
+                </div>
+                <div class="detail-sidebar-item">
+                    <h5><a href="detail1.html">Some native species quickly disappeared from Biotest Lake</a><span><a
+                                href="#">John Doe</a></span></h5>
+                </div>
+                <div class="detail-sidebar-item">
+                    <h5><a href="detail1.html">Some native species quickly disappeared from Biotest Lake</a><span><a
+                                href="#">John Doe</a></span></h5>
+                </div>
+                <div id="sidebar1">
+                    <div class="sidebar-icons">
+                        <a href="#"><i class="fa fa-heart" aria-hidden="true"><span> 1.2 K</span></i></a>
+                        <a href="#"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Detail Ends -->
+@endsection
+
