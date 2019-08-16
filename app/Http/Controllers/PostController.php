@@ -48,7 +48,7 @@ class PostController extends Controller
     {
         $gambar = time() . '-' . $request->img->getClientOriginalName();
         $request->file('img')->storeAs('public', $gambar);
-        $latestPost = Post::orderBy('created_at', 'DESC')->first();
+        $latestPost = Post::withTrashed()->orderBy('created_at', 'DESC')->first();
         if ($latestPost) {
             $latestId = $latestPost->id;
             $removed1char = substr($latestId, 4);
@@ -107,6 +107,8 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->img) {
+            $img = Post::findOrFail($id);
+            unlink('storage/' . $img->img);
             $gambar = time() . '-' . $request->img->getClientOriginalName();
             $request->file('img')->storeAs('public', $gambar);
             $post = Post::updatePost(

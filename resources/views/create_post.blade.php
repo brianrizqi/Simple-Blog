@@ -22,7 +22,7 @@
                                 </select>
                             </div>
                             <div class="textarea col-sm-12">
-                                <label for="Name">Your Comment:</label>
+                                <label for="Name">Your Article:</label>
                                 <textarea name="artikel">
 
                                 </textarea>
