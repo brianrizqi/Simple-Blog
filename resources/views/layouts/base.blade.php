@@ -40,9 +40,9 @@
             <div class="header_menu">
                 <!-- start Navbar (Header) -->
                 <nav class="navbar navbar-default navbar-sticky-function navbar-arrow">
-                    {{--                    <div class="logo pull-left">--}}
-                    {{--                        <a href="index.html"><img alt="Image" src="images/logo1.png"></a>--}}
-                    {{--                    </div>--}}
+                    <div class="logo pull-left">
+                        <a href="index.html"><img alt="Image" src="{{url('images/logo1.png')}}"></a>
+                    </div>
                     <div id="navbar" class="navbar-nav-wrapper pull-right">
 
                         <ul class="nav navbar-nav" id="responsive-menu">

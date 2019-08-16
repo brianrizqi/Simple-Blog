@@ -22,7 +22,7 @@
                             <div class="row">
                                 <div class="col-xs-4">
                                     <div class="list-image">
-                                        <img src="{{url('storage/image/'.$item->img)}}" alt="Image">
+                                        <img src="{{url('storage/'.$item->img)}}" alt="Image">
                                         <div class="image-overlay"></div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                             <p><a href="#"><i class="icon-profile-male"></i> {{$item->user->name}}</a>
                                             </p>
                                             <p><i class="icon-clock"></i> {{$item->tanggal}}</p>
-                                            <p><a href="#"><i class="icon-chat"></i> 5 comments</a></p>
+                                            <p><a href="#"><i class="icon-chat"></i> {{$item->count_comment}} comments</a></p>
                                         </div>
                                     </div>
                                 </div>

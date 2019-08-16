@@ -27,7 +27,7 @@ class HomeController extends Controller
 //        if (Auth::check()) {
 //            return "brian";
 //        } else {
-        $posts = Post::with('user')->with('kategori')->with('comments')->get();
+        $posts = Post::with('user')->with('kategori')->withCount('comments')->get();
         return view('welcome', compact('posts'));
 //        }
     }

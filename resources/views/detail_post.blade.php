@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="col-xs-7">
-                    <img src="{{url('storage/image/'.$post->img)}}" alt="Image">
+                    <img src="{{url('storage/'.$post->img)}}" alt="Image">
                 </div>
             </div>
         </div>
@@ -51,23 +51,21 @@
                         <div class="comment-box">
                             <h3>Comments</h3>
                             <ul class="comment-list">
-                                <li>
-                                    <div class="comment-item">>
-                                        <div class="comment-content">
-                                            <h4><a href="#">Jack Richard</a></h4>
-                                            <p class="date"><i class="icon-clock"></i> 12 May 2018</p>
-                                            <p>Et veniam possimus voluptatum voluptatem excepturi qui. Unde eum ut
-                                                architecto veritatis quia deserunt incidunt consequatur. In fugiat
-                                                voluptatem porro distinctio deleniti quod labore. Ipsam quibusdam
-                                                inventore enim molestiae ducimus perspiciatis omnis. Eos repellat enim
-                                                qui sit eaque maiores.</p>
-                                            <p>Quos quos tempora ab eos eum. Et libero fugiat quia et qui. Et illo et ut
-                                                dolor nihil esse dolores rerum. Ut voluptatem voluptatibus non officiis
-                                                aut quia.</p>
-                                            <a href="#" class="btn-white btn-red">Reply</a>
+                                @foreach($comment as $item)
+                                    <li>
+                                        <div class="comment-item">
+                                            <div class="comment-content">
+                                                <h4>{{$item->user->name}}</h4>
+{{--                                                <p class="date"><i--}}
+{{--                                                        class="icon-clock"></i> {{$item->created_atcreated_at->format('m/d/Y')}}--}}
+{{--                                                </p>--}}
+                                                <p>
+                                                    {{$item->komen}}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="comment-form">
@@ -106,14 +104,6 @@
                 <div class="detail-sidebar-item">
                     <h5><a href="detail1.html">Some native species quickly disappeared from Biotest Lake</a><span><a
                                 href="#">John Doe</a></span></h5>
-                </div>
-                <div id="sidebar1">
-                    <div class="sidebar-icons">
-                        <a href="#"><i class="fa fa-heart" aria-hidden="true"><span> 1.2 K</span></i></a>
-                        <a href="#"><i class="fa fa-bookmark" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    </div>
                 </div>
             </div>
         </div>

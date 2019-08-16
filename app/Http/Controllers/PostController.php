@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Kategori;
 use App\Post;
-use http\Client\Curl\User;
+use Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -33,12 +34,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        if (Auth::check()) {
-            $kategori = Kategori::all();
-            return route('create_post', compact('kategori'));
-        } else {
-
-        }
+        $kategori = Kategori::all();
+        return view('create_post', compact('kategori'));
     }
 
     /**
@@ -49,17 +46,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $gambar = time() . '-' . $request->img->getClientOriginalName();
+        $request->file('img')->storeAs('public', $gambar);
+        $latestPost = Post::orderBy('created_at', 'DESC')->first();
+        if ($latestPost) {
+            $latestId = $latestPost->id;
+            $removed1char = substr($latestId, 4);
+            $id = $stpad = 'POST' . str_pad($removed1char + 1, 8, "0", STR_PAD_LEFT);
+        } else {
+            $id = 'POST' . str_pad(1, 8, "0", STR_PAD_LEFT);
+        }
         $post = Post::createPost(
-            getAutoNumber(8),
-            $request->id_user,
+            $id,
+            Auth::user()->id,
             $request->id_kategori,
             $request->judul,
             $request->artikel,
-            $request->tanggal,
+            date('Y-m-d'),
             $request->tag1,
             $request->tag2,
             $request->tag3,
-            $request->img
+            $gambar
         );
         return redirect()->route('index');
     }
@@ -73,7 +80,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::with('user')->with('kategori')->findOrFail($id);
-        $comment = Comment::with('user')->with('post')->findMany($id);
+        $comment = Comment::with('user')->with('post')->where('comments.id_post', $id)->get();
         return view('detail_post', compact('post', 'comment'));
     }
 

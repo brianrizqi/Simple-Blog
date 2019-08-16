@@ -19,8 +19,9 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('index');
 
-Route::get('/post/{id}', 'PostController@show')->name('post.show');
 Route::get('/post/create', 'PostController@create')->name('post.create');
+Route::post('/post/store', 'PostController@store')->name('post.store');
+Route::get('/post/{id}', 'PostController@show')->name('post.show');
 
 
 Route::post('/komen/{id}', 'CommentController@store')->name('komen.store');

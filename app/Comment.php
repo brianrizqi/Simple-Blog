@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $id_post
+ * @property string $id_post
  * @property int $id_user
  * @property string $komen
  * @property Post $post

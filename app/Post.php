@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property int $id
+ * @property string $id
  * @property int $id_user
  * @property int $id_kategori
  * @property string $judul
@@ -34,7 +34,7 @@ class Post extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_user', 'id_kategori', 'judul', 'artikel', 'tanggal', 'tag1', 'tag2', 'tag3', 'img', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['id', 'id_user', 'id_kategori', 'judul', 'artikel', 'tanggal', 'tag1', 'tag2', 'tag3', 'img', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
