@@ -8,6 +8,7 @@ use App\Post;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -46,28 +47,42 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $gambar = time() . '-' . $request->img->getClientOriginalName();
-        $request->file('img')->storeAs('public', $gambar);
-        $latestPost = Post::withTrashed()->orderBy('created_at', 'DESC')->first();
-        if ($latestPost) {
-            $latestId = $latestPost->id;
-            $removed1char = substr($latestId, 4);
-            $id = $stpad = 'POST' . str_pad($removed1char + 1, 8, "0", STR_PAD_LEFT);
+        $validator = Validator::make($request->all(), [
+            'id_kategori' => 'required|integer',
+            'judul' => 'required|string|max:191',
+            'artikel' => 'required|string',
+            'tag1' => 'required|string',
+            'img' => 'required|mimes:jpg,jpeg,png'
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                ->route('post.create')
+                ->withErrors($validator)
+                ->withInput();
         } else {
-            $id = 'POST' . str_pad(1, 8, "0", STR_PAD_LEFT);
+            $gambar = time() . '-' . $request->img->getClientOriginalName();
+            $request->file('img')->storeAs('public', $gambar);
+            $latestPost = Post::withTrashed()->orderBy('created_at', 'DESC')->first();
+            if ($latestPost) {
+                $latestId = $latestPost->id;
+                $removed1char = substr($latestId, 4);
+                $id = $stpad = 'POST' . str_pad($removed1char + 1, 8, "0", STR_PAD_LEFT);
+            } else {
+                $id = 'POST' . str_pad(1, 8, "0", STR_PAD_LEFT);
+            }
+            $post = Post::createPost(
+                $id,
+                Auth::user()->id,
+                $request->id_kategori,
+                $request->judul,
+                $request->artikel,
+                date('Y-m-d'),
+                $request->tag1,
+                $request->tag2,
+                $request->tag3,
+                $gambar
+            );
         }
-        $post = Post::createPost(
-            $id,
-            Auth::user()->id,
-            $request->id_kategori,
-            $request->judul,
-            $request->artikel,
-            date('Y-m-d'),
-            $request->tag1,
-            $request->tag2,
-            $request->tag3,
-            $gambar
-        );
         return redirect()->route('index');
     }
 

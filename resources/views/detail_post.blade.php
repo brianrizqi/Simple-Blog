@@ -84,9 +84,14 @@
                                 <div class="row">
                                     <div class="textarea col-sm-12">
                                         <label for="Name">Your Comment:</label>
-                                        <textarea name="komen">
-
+                                        <textarea name="komen">{{old('komen')}}
                                         </textarea>
+                                        @if($errors->has('komen'))
+                                            <label for="help-block" class="form-control-label col-sm-3"
+                                                   aria-hidden="true"></label>
+                                            <span
+                                                class="help-block m-b-none col-sm-9 text-danger"><small><strong>{{ $errors->first('komen') }}</strong></small></span>
+                                        @endif
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="comment-btn">

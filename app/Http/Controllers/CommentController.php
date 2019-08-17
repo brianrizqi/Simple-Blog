@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -36,11 +37,21 @@ class CommentController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $komen = Comment::createComment(
-            $id,
-            Auth::user()->id,
-            $request->komen
-        );
+        $validator = Validator::make($request->all(), [
+            'komen' => 'required|string'
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+                ->route('post.show', ['id' => $id])
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $komen = Comment::createComment(
+                $id,
+                Auth::user()->id,
+                $request->komen
+            );
+        }
         return redirect()->route('post.show', ['id' => $id]);
     }
 
