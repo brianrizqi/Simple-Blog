@@ -96,7 +96,8 @@ class PostController extends Controller
     {
         $post = Post::with('user')->with('kategori')->findOrFail($id);
         $comment = Comment::with('user')->with('post')->where('comments.id_post', $id)->get();
-        return view('detail_post', compact('post', 'comment'));
+        $random = Post::with('user')->inRandomOrder()->take(3)->get();
+        return view('detail_post', compact('post', 'comment', 'random'));
     }
 
     /**

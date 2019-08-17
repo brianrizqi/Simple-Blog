@@ -108,18 +108,13 @@
                 </div>
             </div>
             <div class="detail-sidebar">
-                <div class="detail-sidebar-item">
-                    <h5><a href="detail1.html">Some native species quickly disappeared from Biotest Lake</a><span><a
-                                href="#">John Doe</a></span></h5>
-                </div>
-                <div class="detail-sidebar-item">
-                    <h5><a href="detail1.html">Some native species quickly disappeared from Biotest Lake</a><span><a
-                                href="#">John Doe</a></span></h5>
-                </div>
-                <div class="detail-sidebar-item">
-                    <h5><a href="detail1.html">Some native species quickly disappeared from Biotest Lake</a><span><a
-                                href="#">John Doe</a></span></h5>
-                </div>
+                @foreach($random as $item)
+                    <div class="detail-sidebar-item">
+                        <h5>
+                            <a href="{{route('post.show',['id'=> $item->id])}}">{{$item->judul}}</a><span>{{$item->user->name   }}</span>
+                        </h5>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
