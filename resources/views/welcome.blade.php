@@ -59,8 +59,7 @@
                                             <p><a href="#"><i class="icon-profile-male"></i> {{$item->user->name}}</a>
                                             </p>
                                             <p><i class="icon-clock"></i> {{$item->tanggal}}</p>
-                                            <p><a href="#"><i class="icon-chat"></i> {{$item->comments_count}}
-                                                    comments</a></p>
+                                            <p><i class="icon-chat"></i> {{$item->comments_count}}  comments</p>
                                         </div>
                                     </div>
                                 </div>
