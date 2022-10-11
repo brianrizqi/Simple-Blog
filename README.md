@@ -1,6 +1,10 @@
 # Simple-Blog Laravel
-## dont forget to composer install
+----
+Simple project to build a simple blog using Laravel. We don't expect any contributor who interested to this project, but who knows? :"))
+----
 
-## cp .env.example .env
-## setup your database
-## php artisan key:generate
+## For Contributors
+- dont forget to composer install
+- cp .env.example .env
+- setup your database
+- php artisan key:generate
