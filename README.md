@@ -8,3 +8,4 @@ Simple project to build a simple blog using Laravel. We don't expect any contrib
 - cp .env.example .env
 - setup your database
 - php artisan key:generate
+- php artisan serve
